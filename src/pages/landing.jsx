@@ -1,7 +1,21 @@
 // This will be out landing page
 
+import Autoplay from "embla-carousel-autoplay";
+
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 import { Link } from "react-router-dom";
+import companies from "../data/companies.json";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const LandingPage = () => {
   return (
@@ -33,9 +47,45 @@ const LandingPage = () => {
         </Link>
       </div>
       {/* carousel */}
+      <Carousel plugins={[Autoplay({ delay: 1000 })]} className="w-full p-10">
+        <CarouselContent className="flex gap-5 sm:gap-20 items-center">
+          {companies.map(({ name, path, id }) => {
+            return (
+              <CarouselItem key={id} className="basis-1/3 lg:basis-1/6">
+                <img
+                  src={path}
+                  alt={name}
+                  className="h-9 sm:h-14 object-contain"
+                />
+              </CarouselItem>
+            );
+          })}
+        </CarouselContent>
+      </Carousel>
 
       {/* banner */}
-      <section>{/* cards */}</section>
+      <img src="/banner.jpeg" alt="banner" className="w-full" />
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* cards */}
+        <Card>
+          <CardHeader>
+            <CardTitle>For Job Seekers</CardTitle>
+            <CardDescription>
+              <p>Search and apply for jobs, track applications, and more.</p>
+            </CardDescription>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>For Employers</CardTitle>
+            <CardDescription>
+              <p>
+                Post jobs, manage applications, and find the best candidates.
+              </p>
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </section>
       {/* Accordion */}
     </main>
   );
